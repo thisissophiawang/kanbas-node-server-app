@@ -13,11 +13,11 @@ export default function CourseRoutes(app) {
     res.send(courses);
   });
 
-  // Delete a course
+  // Delete the course
   app.delete("/api/courses/:id", (req, res) => {
     const { id } = req.params;
     Database.courses = Database.courses.filter((c) => c._id !== id);
-    res.sendStatus(204);
+    res.sendStatus(200);
   });
 
   // Update a course
