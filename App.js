@@ -9,6 +9,7 @@ import AssignementRoutes from './Kanbas/Assignments/routes.js';
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 Hello(app);
 Lab5(app);
 CourseRoutes(app);
