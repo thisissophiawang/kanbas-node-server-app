@@ -1,16 +1,20 @@
+//Users/sophiawang/2024/summer/webdev/su2/kanbas-node-server-app/Users/routes.js
 import * as dao from "./dao.js";
 
 export default function UserRoutes(app) {
+  //create a new user
   const createUser = async (req, res) => {
     const user = await dao.createUser(req.body);
     res.json(user);
   };
-
+  
+  //delete a user
   const deleteUser = async (req, res) => { 
     const status = await dao.deleteUser(req.params.userId);
     res.json(status);
   };
 
+  //find all users
   const findAllUsers = async (req, res) => {
     const { role,name  } = req.query;
     if (role) {
@@ -29,12 +33,14 @@ export default function UserRoutes(app) {
     //return;
   };
 
+  //find a user by id
   const findUserById = async (req, res) => { 
     const userId = req.params.userId;
     const user = await dao.findUserById(userId);
     res.json(user);
   };
-  
+
+  //update a user
   const updateUser = async (req, res) => {
     const { userId } = req.params;
     const status = await
@@ -42,6 +48,7 @@ export default function UserRoutes(app) {
     res.json(status);
   };
 
+  //sign up new user
   const signup = async (req, res) => { };
   const signin = async (req, res) => { };
   const signout = (req, res) => { };
