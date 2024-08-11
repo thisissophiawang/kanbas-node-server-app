@@ -1,5 +1,7 @@
 //Users/sophiawang/2024/summer/webdev/su2/kanbas-node-server-app/Users/routes.js
 import * as dao from "./dao.js";
+let currentUser = null; //global variable to store the current user
+
 
 export default function UserRoutes(app) {
   //create a new user
@@ -50,7 +52,11 @@ export default function UserRoutes(app) {
 
   //sign up new user
   const signup = async (req, res) => { };
-  const signin = async (req, res) => { };
+  const signin = async (req, res) => {
+    const { username, password } = req.body;
+    currentUser = await dao.findUserByCredentials(username, password);
+    res.json(currentUser);
+};
   const signout = (req, res) => { };
   const profile = async (req, res) => { };
 
