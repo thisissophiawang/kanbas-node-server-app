@@ -73,7 +73,11 @@ export default function UserRoutes(app) {
     res.json(currentUser);
 };
   //sign out user
-  const signout = (req, res) => { };
+  const signout = (req, res) => {
+    currentUser = null;
+    res.sendStatus(200);
+  };
+
 
   //get the current user profile
   const profile = async (req, res) => {
