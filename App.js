@@ -8,6 +8,8 @@ import AssignementRoutes from './Kanbas/Assignments/routes.js';
 import "dotenv/config";
 import UserRoutes from "./Users/routes.js";
 
+
+
 import mongoose from 'mongoose';
 
 const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas";
@@ -28,6 +30,7 @@ mongoose.connection.on('disconnected', () => {
 // Connect to MongoDB
 mongoose.connect(CONNECTION_STRING);
 
+//importing the routes
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -37,7 +40,8 @@ Lab5(app);
 CourseRoutes(app);
 ModuleRoutes(app);
 AssignementRoutes(app);
-UserRoutes(app); // configure UserRoutes
+UserRoutes(app); //connect the UserRoutes to the app
+
 
 const PORT = process.env.PORT || 4000;
 
