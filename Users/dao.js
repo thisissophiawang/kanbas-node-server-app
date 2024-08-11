@@ -1,3 +1,4 @@
+//Users/sophiawang/2024/summer/webdev/su2/kanbas-node-server-app/Users/dao.js
 import model from "./model.js";
 export const createUser = (user) => {} // implemented later
 export const findAllUsers = () => model.find();
