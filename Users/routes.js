@@ -52,13 +52,21 @@ export default function UserRoutes(app) {
 
   //sign up new user
   const signup = async (req, res) => { };
+
+  //sign in user
   const signin = async (req, res) => {
     const { username, password } = req.body;
     currentUser = await dao.findUserByCredentials(username, password);
     res.json(currentUser);
 };
+  //sign out user
   const signout = (req, res) => { };
-  const profile = async (req, res) => { };
+
+  //get the current user profile
+  const profile = async (req, res) => {
+    res.json(currentUser);
+  };
+
 
   app.post("/api/users", createUser);
   app.get("/api/users", findAllUsers);
@@ -68,5 +76,6 @@ export default function UserRoutes(app) {
   app.post("/api/users/signup", signup);
   app.post("/api/users/signin", signin);
   app.post("/api/users/signout", signout);
-  app.post("/api/users/profile", profile);
+  //app.post("/api/users/profile", profile);
+  app.get("/api/users/profile", profile);
 }
