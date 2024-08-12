@@ -41,11 +41,13 @@ app.use(cors({
   origin: process.env.NETLIFY_URL || "http://localhost:3000",
 })
 );
+//run locally
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kanbas",
   resave: false,
   saveUninitialized: false,
 };
+//run on remote server
 if (process.env.NODE_ENV !== "development") {
   sessionOptions.proxy = true;
   sessionOptions.cookie = {
