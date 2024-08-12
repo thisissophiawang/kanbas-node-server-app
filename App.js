@@ -7,6 +7,8 @@ import ModuleRoutes from './Kanbas/Modules/routes.js';
 import AssignementRoutes from './Kanbas/Assignments/routes.js';
 import "dotenv/config";
 import UserRoutes from "./Users/routes.js";
+import session from "express-session";
+
 
 
 
@@ -36,7 +38,15 @@ app.use(cors({
   credentials: true,
   origin: process.env.NETLIFY_URL || "http://localhost:3000",
 })
+);const sessionOptions = {
+  secret: "any string",
+  resave: false,
+  saveUninitialized: false,
+};
+app.use(
+  session(sessionOptions)
 );
+
 app.use(express.json());
 
 Hello(app);
