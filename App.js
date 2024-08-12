@@ -32,7 +32,11 @@ mongoose.connect(CONNECTION_STRING);
 
 //importing the routes
 const app = express();
-app.use(cors());
+app.use(cors({
+  credentials: true,
+  origin: process.env.NETLIFY_URL || "http://localhost:3000",
+})
+);
 app.use(express.json());
 
 Hello(app);
