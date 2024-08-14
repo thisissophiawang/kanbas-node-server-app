@@ -9,6 +9,7 @@ import AssignementRoutes from './Kanbas/Assignments/routes.js';
 import "dotenv/config";
 import UserRoutes from "./Users/routes.js";
 import session from "express-session";
+import QuizRoutes from "./Kanbas/Quizzes/routes.js"; // Correct path
 
 // Mongoose
 import mongoose from 'mongoose';
@@ -69,6 +70,8 @@ CourseRoutes(app);
 ModuleRoutes(app);
 AssignementRoutes(app);
 UserRoutes(app); //connect the UserRoutes to the app
+QuizRoutes(app); //connect the QuizRoutes to the app
+
 
 
 const PORT = process.env.PORT || 4000;
