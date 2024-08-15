@@ -12,3 +12,6 @@ export const findQuizzesByCourseId = (courseId) => model.find({ course: courseId
 
 export const updateQuiz = (quizId, quiz) => model.updateOne({ _id: quizId }, { $set: quiz });
 export const deleteQuiz = (quizId) => model.deleteOne({ _id: quizId });
+
+//submit a response to a quiz
+export const submitResponse = (quizId, response) => model.updateOne({ _id: quizId }, { $push: { responses: response } });

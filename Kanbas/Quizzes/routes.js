@@ -1,16 +1,12 @@
-//Users/sophiawang/2024/summer/webdev/su2/kanbas-node-server-app/Kanbas/Quizzes/routes.js
 import * as dao from "./dao.js";
 
 export default function QuizRoutes(app) {
 
   const createQuiz = async (req, res) => {
     try {
-      console.log("Received request to create quiz:", req.body);
       const newQuiz = await dao.createQuiz(req.body);
-      console.log("Successfully created quiz:", newQuiz);
       res.json(newQuiz);
     } catch (error) {
-      console.error("Error creating quiz:", error.message);
       res.status(500).json({ error: error.message });
     }
   };
@@ -20,7 +16,6 @@ export default function QuizRoutes(app) {
       const quizzes = await dao.findAllQuizzes();
       res.json(quizzes);
     } catch (error) {
-      console.error("Error retrieving quizzes:", error.message);
       res.status(500).json({ error: error.message });
     }
   };
@@ -31,7 +26,6 @@ export default function QuizRoutes(app) {
       const quizzes = await dao.findQuizzesByCourseId(courseId);
       res.json(quizzes);
     } catch (error) {
-      console.error("Error retrieving quizzes by course:", error.message);
       res.status(500).json({ error: error.message });
     }
   };
@@ -46,7 +40,6 @@ export default function QuizRoutes(app) {
         res.status(404).json({ error: "Quiz not found" });
       }
     } catch (error) {
-      console.error("Error retrieving quiz:", error.message);
       res.status(500).json({ error: error.message });
     }
   };
@@ -61,7 +54,6 @@ export default function QuizRoutes(app) {
         res.status(404).json({ error: "Quiz not found" });
       }
     } catch (error) {
-      console.error("Error updating quiz:", error.message);
       res.status(500).json({ error: error.message });
     }
   };
@@ -76,15 +68,51 @@ export default function QuizRoutes(app) {
         res.status(404).json({ error: "Quiz not found" });
       }
     } catch (error) {
-      console.error("Error deleting quiz:", error.message);
       res.status(500).json({ error: error.message });
     }
   };
 
-  app.get("/api/courses/:courseId/quizzes", findQuizzesByCourseId); //new route
+  const submitQuizResponse = async (req, res) => {
+    try {
+      const { quizId } = req.params;
+      const response = {
+        userId: req.body.userId,
+        answers: req.body.answers,
+        score: req.body.score,
+        attemptDate: new Date(),
+      };
+
+      const result = await dao.submitResponse(quizId, response);
+      if (result.nModified > 0) {
+        res.json({ message: "Quiz response submitted successfully" });
+      } else {
+        res.status(404).json({ error: "Quiz not found" });
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+
+
+const handleSaveAndPreview = async () => {
+  try {
+    const savedQuiz = editingIndex !== null ? 
+      await updateQuiz(currentQuizId, quizData) : 
+      await createQuiz(quizData);
+
+    // After saving, navigate to the preview page
+    navigate(`/quiz-preview/${savedQuiz._id}`);
+  } catch (error) {
+    console.error("Error saving quiz:", error);
+  }
+};
+  };
+
+  app.get("/api/courses/:courseId/quizzes", findQuizzesByCourseId);
   app.post("/api/quizzes", createQuiz);
   app.get("/api/quizzes", findAllQuizzes);
   app.get("/api/quizzes/:quizId", findQuizById);
   app.put("/api/quizzes/:quizId", updateQuiz);
   app.delete("/api/quizzes/:quizId", deleteQuiz);
+  app.post("/api/quizzes/:quizId/submit", submitQuizResponse);
+
 }
