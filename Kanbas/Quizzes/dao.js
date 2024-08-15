@@ -1,3 +1,4 @@
+//Users/sophiawang/2024/summer/webdev/su2/kanbas-node-server-app/Kanbas/Quizzes/dao.js
 import model from "./model.js";
 
 export const findAllQuizzes = () => model.find();
