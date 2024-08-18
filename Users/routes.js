@@ -1,6 +1,6 @@
 //Users/sophiawang/2024/summer/webdev/su2/kanbas-node-server-app/Users/routes.js
 import * as dao from "./dao.js";
-//let currentUser = null; 
+//let currentUser = null;
 
 
 export default function UserRoutes(app) {
@@ -9,9 +9,9 @@ export default function UserRoutes(app) {
     const user = await dao.createUser(req.body);
     res.json(user);
   };
-  
+
   //delete a user
-  const deleteUser = async (req, res) => { 
+  const deleteUser = async (req, res) => {
     const status = await dao.deleteUser(req.params.userId);
     res.json(status);
   };
@@ -25,7 +25,7 @@ export default function UserRoutes(app) {
     return;
   }
   if (name) {
-    const users = await 
+    const users = await
       dao.findUsersByPartialName(name);
     res.json(users);
     return;
@@ -36,7 +36,7 @@ export default function UserRoutes(app) {
   };
 
   //find a user by id
-  const findUserById = async (req, res) => { 
+  const findUserById = async (req, res) => {
     const userId = req.params.userId;
     const user = await dao.findUserById(userId);
     res.json(user);
@@ -65,11 +65,8 @@ export default function UserRoutes(app) {
 
   //sign in user
   const signin = async (req, res) => {
-    console.log("signin");
-    console.log(req.body);
     const { username, password } = req.body;
     const currentUser = await dao.findUserByCredentials(username, password);
-    console.log(currentUser)    
     if (currentUser) {
       req.session["currentUser"] = currentUser;
       res.json(currentUser);

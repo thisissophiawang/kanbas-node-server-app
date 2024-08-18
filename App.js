@@ -14,7 +14,8 @@ import QuizRoutes from "./Kanbas/Quizzes/routes.js"; // Correct path
 // Mongoose
 import mongoose from 'mongoose';
 
-const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/Kanbas";
+// const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/Kanbas";
+const CONNECTION_STRING = "mongodb://127.0.0.1:27017/Kanbas";
 
 // Mongoose connection listeners
 mongoose.connection.on('connected', () => {

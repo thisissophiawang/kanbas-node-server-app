@@ -49,9 +49,9 @@ export default function QuizRoutes(app) {
       const { quizId } = req.params;
       const updatedQuiz = await dao.updateQuiz(quizId, req.body);
       if (updatedQuiz.modifiedCount > 0) {
-        res.json({ message: "Quiz updated successfully" });
+        res.json(req.body);
       } else {
-        res.status(404).json({ error: "Quiz not found" });
+        res.status(200).json({ message: "nothing changed" });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -92,11 +92,11 @@ export default function QuizRoutes(app) {
       res.status(500).json({ error: error.message });
     }
 
-    //issue !!
+
 const handleSaveAndPreview = async () => {
   try {
-    const savedQuiz = editingIndex !== null ? 
-      await updateQuiz(currentQuizId, quizData) : 
+    const savedQuiz = editingIndex !== null ?
+      await updateQuiz(currentQuizId, quizData) :
       await createQuiz(quizData);
 
     // After saving, navigate to the preview page
@@ -108,7 +108,7 @@ const handleSaveAndPreview = async () => {
   };
 
   app.get("/api/courses/:courseId/quizzes", findQuizzesByCourseId);
-  app.post("/api/quizzes", createQuiz);
+  app.post("/api/courses/:courseId/quizzes", createQuiz);
   app.get("/api/quizzes", findAllQuizzes);
   app.get("/api/quizzes/:quizId", findQuizById);
   app.put("/api/quizzes/:quizId", updateQuiz);
